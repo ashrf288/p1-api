@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app=express();
 require('dotenv').config();
 const Art=require('./modules/moudle')
@@ -6,6 +7,7 @@ const axios = require('axios');
 const {getData,addData,update,deleteData}=require('./controllers/cntroller')
 app.use(express.json());
 const PORT=process.env.PORT;
+app.use(cors())
 
 
 app.get('/',(req,res)=>{
