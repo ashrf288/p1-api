@@ -23,6 +23,6 @@ app.get('/',(req,res)=>{
 
 app.get('/user/:email',getData)
 app.post('/addData/:email',addData)
-app.put('/addData/:id',update)
+app.put('/  updateData/:id',update)
 app.delete('/delete/:id',deleteData)
 app.listen(PORT,()=>console.log(`listiniing on port ${PORT}`))

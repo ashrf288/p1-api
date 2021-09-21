@@ -17,23 +17,41 @@ let ArtSchema=mongoose.Schema({
 
 let ArtModal=mongoose.model('Art',ArtSchema);
 
+// let getData=(req,res)=>{
+//     let email=req.params.email;
+//     ArtModal.find({email:email}).then(resp=>{
+//         if(resp.length>0){res.json(resp)}
+//         else{res.json('no data found')}
+//     }
+//     )
+// }
+
 let getData=(req,res)=>{
     let email=req.params.email;
-    ArtModal.find({email:email}).then(resp=>{
-        if(resp.length>0){res.json(resp)}
-        else{res.json('no data found')}
-    }
-    )
+    ArtModal.find({email},(error,result)=>{
+        if(error){res.send('error')}
+        else if(result.length>0){res.send(result)}
+        else{res.status(404).json('data not found')}
+    })
 }
+
+// let addData=(req,res)=>{
+//     let email=req.params.email;
+//     let {name,image,level}=req.body;
+//     let newArt=new ArtModal({
+//         email,name,image,level
+//     })
+//     newArt.save()
+//     res.send({msg:'added',result:newArt})
+// }
 
 let addData=(req,res)=>{
     let email=req.params.email;
-    let {name,image,level}=req.body;
-    let newArt=new ArtModal({
-        email,name,image,level
-    })
-    newArt.save()
-    res.send({msg:'added',result:newArt})
+    let {name,image,level}=req.body; 
+      ArtModal.create({email,name,image,level},(err,result)=>{
+          if(err){res.send('error')}
+          else{res.send(result)}
+      })
 }
 let update=(req,res)=>{
     let id=req.params.id;
